@@ -18,19 +18,19 @@ int main()
     PRINT("ON START");
 
     setup_blehid("SIMPLE HID DEVICE", "ALEXEY SUDACHEN", 0xfe01, 0xfe01,
-                 BLEHID_AUTO_READVERTISE|(get_boardButton(1)?BLEHID_ERASE_BONDS:0),
+                 BLEHID_AUTO_READVERTISE|(get_boardButton(0)?BLEHID_ERASE_BONDS:0),
                  3,
                  BLEHID_INPUT_REPORT(8),
                  BLEHID_OUTPUT_REPORT(8),
                  BLEHID_FEATURE_REPORT(8));
 
-    static RtcEvent Pulse = RTC_REPEAT_EVENT(1000);
+    static RtcEvent Pulse = RTC_REPEAT_EVENT(500);
     list_event(&Pulse.e);
     static RtcEvent Update = RTC_REPEAT_EVENT(2000);
     list_event(&Update.e);
-    static ButtonEvent Rebound = LONG_PRESS_BUTTON_EVENT(1,3000);
+    static ButtonEvent Rebound = LONG_PRESS_BUTTON_EVENT(0,3000);
     list_event(&Rebound.e);
-    static ButtonEvent Reset = CLICK_BUTTON_EVENT(1,250);
+    static ButtonEvent Reset = CLICK_BUTTON_EVENT(0,250);
     list_event(&Reset.e);
 
     PRINT("starting BLE advertising");
